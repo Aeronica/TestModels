@@ -1,0 +1,106 @@
+
+// For those who want the bleeding edge
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+		}	
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+		classpath 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.2.1'
+    }
+}
+
+apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'org.sonarqube'
+apply plugin: 'java'
+
+sourceCompatibility = targetCompatibility = "1.8"
+compileJava {
+    sourceCompatibility = targetCompatibility = "1.8"
+}
+
+ext.buildProperties = file "build.properties"
+
+buildProperties.withReader {
+    def properties = new Properties()
+    properties.load(it)
+    ext.config = new ConfigSlurper().parse properties
+}
+
+version = "${config.modVersionMajor}.${config.modVersionMinor}.${config.modVersionRev}-${config.versionType}.${config.typeVersion}"
+group = "net.aeronica.mods.testmodels"
+archivesBaseName = "testmodels-${config.minecraftVersion}"
+
+minecraft {
+    version = "${config.minecraftVersion}-${config.forgeVersion}"
+    runDir = "${config.runDir}"
+	mappings = "${config.forgeMappings}"
+    
+    replaceIn "net/aeronica/mods/testmodels/TestModels.java"
+    replace "{@VERSION}", project.version
+    replace "{@FORGE_VERSION}", "${config.minecraftVersion}-${config.forgeVersion}"
+    replace "required-after:forge@[1.9.4-12.17.0.2051,)" , "required-after:forge@[${config.minecraftVersion}-${config.forgeVersion},)"
+}
+
+dependencies {
+	// NOP
+}
+
+processResources {
+    // Exclude the GIMP image files
+    exclude '**/*.xcf'
+
+    // Exclude the Cubik model files
+    exclude '**/*.bdc3D'
+
+    // Exclude the Paint.NET image files
+    exclude '**/*.pdn'
+    
+    // this will ensure that this task is redone when the versions change.
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
+    // replace stuff in mcmod.info, nothing else
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+                
+        // replace version and mcversion
+        expand 'version':project.version, 'mcversion':project.minecraft.version
+    }
+        
+    // copy everything else, thats not the mcmod.info
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+    
+    rename '(.+_at.cfg)', 'META-INF/$1'
+}
+
+sonarqube {
+    properties {  
+        property "sonar.projectName", "TestModels"
+        property "sonar.host.url", "https://sonarcloud.io"
+        property "sonar.branch", "${config.projectBranch}"
+        property "sonar.coverage.exclusions", "**/*"
+    }
+}
+
+task signJar(type: SignJar, dependsOn: reobfJar) {
+    onlyIf {
+        project.hasProperty("keyStore")
+    }
+     
+    keyStore = project.findProperty('keyStore')
+    alias = project.findProperty('keyStoreAlias')
+    storePass = project.findProperty('keyStorePass')
+    keyPass = project.findProperty('keyStoreKeyPass')
+    inputFile = jar.archivePath
+    outputFile = jar.archivePath
+}
+
+build.dependsOn signJar
+

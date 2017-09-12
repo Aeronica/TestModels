@@ -1,0 +1,24 @@
+language: java
+sudo: false
+install: true
+addons:
+  sonarcloud:
+    branches:
+      - "1.12"
+    organization: "aeronica-github"
+    token:
+      secure: "RQyUVQC+8O2s+8L91mPKZh2+cQ4rp4zY8R095AA9mpn+BYEB8SSsRyB5JQF9KWJdBVhxviH2gQaHKKlkUUAq9roNh5Cl6WAjANiDxbWtSwSJg1CkBWkgyBasG1nQEmAeVuLbxt07hSRWJmWO1tuBtX9QVWbwC/l+gtR7Q2wrdPRM3O+8GhjAoYnBI0f4o9enRWVUJtAKXBPJmf32PTSK42BZP8HPF0WmimZjs5hGOVjh3Ywfygu1VExO/ZeJ8HGFN84Xblefj5cJThyhEAbbi8nQ13+Igka/mUPUL4iSScRrhucsJ159INnZsEdXB8sgQwiBAMGcUTKZ+nuyImJ46jr3G80VkraLp9kf9cHBZpPaBaKaE19IJ8xTbuf/g0cvcUettjaj+ldtAHzznXzDr3vJcCNYNBbVCyS5hW/YUMTSOu+sV2PczfQUvnqs8hj72piRD3opBXZQB9YydIKalU7jCo/vpJiVKau+T7O+Si4boWrZ4VG8IXu8lEGrcS5xqTDGXpYjB4Vzjbmq+O/lvyy58ojEZpFI4TfYcVGqUbFd4r9bcc8kh1tKsQZ2f5hOCojBOJ+ntkz94f2FKMbfduNgeyh59sn+q6+R/CnIRpf1PWCm5eHkS4KgBBCuadQvpr10ouLitnlI20QxcRU+lKmyI090Va2eyyFzlJGM664="
+jdk:
+- oraclejdk8
+before_install:
+- chmod +x gradlew
+script:
+- "./gradlew clean build sonarqube"
+cache:
+  directories:
+  - "$HOME/.m2/repository"
+  - "$HOME/.sonar/cache"
+  - "$HOME/.gradle"
+  - ".gradle"
+notifications:
+  email: false

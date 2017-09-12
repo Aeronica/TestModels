@@ -1,0 +1,14 @@
+[
+{
+  "modid": "klokken",
+  "name": "Klokken",
+  "description": "Bell and Chimes",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "https://minecraft.curseforge.com/projects/klokken",
+  "authorList": ["Aeronica"],
+  "credits": "The Forge and FML guys, The Modding Community",
+  "screenshots": [],
+  "dependencies": []
+}
+]
