@@ -37,7 +37,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 @Mod(modid = TestModels.MODID, name = TestModels.MODNAME, version = TestModels.VERSION,
      acceptedMinecraftVersions = "[1.12,1.13)",
-     dependencies = TestModels.DEPS, updateJSON = TestModels.UPDATE,
+     dependencies = TestModels.DEPS,
      certificateFingerprint = "999640c365a8443393a1a21df2c0ede9488400e9")
 
 public class TestModels
@@ -46,8 +46,6 @@ public class TestModels
     public static final String MODNAME = "TestModels";
     public static final String VERSION = "{@VERSION}";
     public static final String DEPS = "required-after:forge@[1.9.4-12.17.0.2051,)";
-    public static final String UPDATE = "https://gist.githubusercontent.com/Aeronica/7a45ac51d0acfdabc19fa5bef8034e23/raw/6c6b76bf4a596dfeaca5be5329466acc70ee14c4/klokken_update.json";
-    
     private static final Logger LOGGER = LogManager.getFormatterLogger("TestModels");
     
     public static final CreativeTabs TAB = new ModTab();
