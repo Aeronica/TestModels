@@ -1,0 +1,5 @@
+{
+    "variants": {
+        "normal": { "model": "testmodels:smartmodel/model_m01" }
+    }
+}
