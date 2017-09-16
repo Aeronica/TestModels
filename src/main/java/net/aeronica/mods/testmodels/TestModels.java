@@ -35,15 +35,15 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = TestModels.MODID, name = TestModels.MODNAME, version = TestModels.VERSION,
+@Mod(modid = TestModels.ID, name = TestModels.NAME, version = TestModels.VERSION,
      acceptedMinecraftVersions = "[1.12,1.13)",
      dependencies = TestModels.DEPS,
      certificateFingerprint = "999640c365a8443393a1a21df2c0ede9488400e9")
 
 public class TestModels
 {
-    public static final String MODID = "testmodels";
-    public static final String MODNAME = "TestModels";
+    public static final String ID = "testmodels";
+    public static final String NAME = "TestModels";
     public static final String VERSION = "{@VERSION}";
     public static final String DEPS = "required-after:forge@[1.9.4-12.17.0.2051,)";
     private static final Logger LOGGER = LogManager.getFormatterLogger("TestModels");
@@ -90,8 +90,8 @@ public class TestModels
         LOGGER.warn("Problem with Signed Jar: %s", event.description());
     }
     
-    public static String prependModID(String name)
+    public static String prependID(String name)
     {
-        return MODID + ":" + name;
+        return ID + ":" + name;
     }
 }

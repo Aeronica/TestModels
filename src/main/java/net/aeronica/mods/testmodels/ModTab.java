@@ -33,14 +33,14 @@ public class ModTab extends CreativeTabs
 
     public ModTab()
     {
-        super(TestModels.MODID);
+        super(TestModels.ID);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public String getTranslatedTabLabel()
     {
-        return TestModels.MODNAME;    
+        return TestModels.NAME;    
     }
 
     @Override
