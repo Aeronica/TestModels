@@ -22,10 +22,7 @@
  */
 package net.aeronica.mods.testmodels.client;
 
-import net.aeronica.mods.testmodels.m01.ModelLoaderM01;
 import net.aeronica.mods.testmodels.server.ServerProxy;
-import net.minecraftforge.client.model.ModelLoaderRegistry;
-import net.minecraftforge.client.model.obj.OBJLoader;
 
 public class ClientProxy extends ServerProxy
 {
@@ -34,6 +31,5 @@ public class ClientProxy extends ServerProxy
     public void preInit()
     {
         super.preInit();
-        ModelLoaderRegistry.registerLoader(ModelLoaderM01.INSTANCE);
     }
 }

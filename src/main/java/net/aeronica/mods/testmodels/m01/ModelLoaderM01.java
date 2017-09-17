@@ -27,7 +27,7 @@ public enum ModelLoaderM01 implements ICustomModelLoader
 
     INSTANCE;
     
-    public final String MODEL_M01_RESOURCE_LOCATION = "models/block/model_m01/";
+    public final String MODEL_M01_RESOURCE_LOCATION = "models/block/smartmodel/";
     
     @Override
     public void onResourceManagerReload(IResourceManager resourceManager)

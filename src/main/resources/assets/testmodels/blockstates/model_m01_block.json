@@ -1,0 +1,5 @@
+{
+    "variants": {
+        "normal": { "model": "testmodels:model_m01_block" }
+    }
+}

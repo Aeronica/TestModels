@@ -18,6 +18,7 @@ package net.aeronica.mods.testmodels.client;
 import com.google.common.collect.BiMap;
 
 import net.aeronica.mods.testmodels.TestModels;
+import net.aeronica.mods.testmodels.m01.ModelLoaderM01;
 import net.aeronica.mods.testmodels.server.block.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -26,8 +27,10 @@ import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.GameData;
@@ -43,19 +46,22 @@ public class ModModels
     public static void register(ModelRegistryEvent event)
     {
         BiMap<Block, Item> biMap = GameData.getBlockItemMap();
+        ModelLoaderRegistry.registerLoader(ModelLoaderM01.INSTANCE);
+        
         StateMapperBase ignoreState = new StateMapperBase() {
             @Override
             protected ModelResourceLocation getModelResourceLocation(IBlockState iBlockState) {
-              return new ModelResourceLocation(TestModels.ID, "model_m01_statemapper");
+              return new ModelResourceLocation(TestModels.prependID("model_m01_statemapper"));
             }
           };
           ModelLoader.setCustomStateMapper(ModBlocks.any_wood, ignoreState);
           
-          setModel(biMap.get(ModBlocks.any_wood), "model_m01");      
+          setModel(biMap.get(ModBlocks.any_wood), "model_m01_block");      
     }
 
     public static void setModel(Item item, String name)
     {
-        ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(TestModels.prependID("name"), "inventory"));
+        ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(TestModels.prependID(name), "inventory"));
     }
+    
 }
