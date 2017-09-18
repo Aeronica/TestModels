@@ -38,7 +38,7 @@ public class ModBlocks
     public static void registerBlocks(RegistryEvent.Register<Block> event)
     {
         event.getRegistry().register(
-                new Block(Material.WOOD).setRegistryName(TestModels.ID, "any_wood").setUnlocalizedName("any_wood").setCreativeTab(TestModels.TAB)
+                new Block(Material.WOOD).setRegistryName(TestModels.ID, "any_wood").setUnlocalizedName(TestModels.prependID("any_wood")).setCreativeTab(TestModels.TAB)
                 );
     }
     
